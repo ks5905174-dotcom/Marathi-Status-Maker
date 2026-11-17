@@ -1,64 +1,31 @@
 <!doctype html>
-<html lang="mr">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#7b1530"><link rel="manifest" href="manifest.webmanifest">
-<title>Marathi Status Maker</title>
+<html lang="mr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#65001b"><link rel="manifest" href="manifest.json"><title>Marathi Status Maker V3</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:#fff7f8;color:#24151a}
-header{background:#7b1530;color:white;padding:18px;text-align:center}h1{margin:0;font-size:23px}
-nav{display:flex;gap:7px;padding:10px;overflow:auto;background:#fff;position:sticky;top:0}
-button{border:0;border-radius:10px;padding:11px 14px;background:#7b1530;color:white;font-weight:600}
-nav button{white-space:nowrap}main{padding:14px;max-width:700px;margin:auto}
-.panel{background:white;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 2px 10px #0000000d}
-.status{padding:12px;border-bottom:1px solid #eee;line-height:1.6}
-.small{background:#f3e8eb;color:#5d1a2e;margin:4px}
-input,textarea,select{width:100%;padding:12px;border:1px solid #d9cbd0;border-radius:9px;margin:7px 0;font:inherit}
-textarea{min-height:90px}canvas{width:100%;max-width:360px;background:#7b1530;border-radius:12px;display:block;margin:10px auto}
-video{width:100%;max-height:360px;background:#111;border-radius:10px}
-.hidden{display:none}.muted{color:#76666c;font-size:13px}
-</style>
-</head>
-<body>
-<header><h1>मराठी स्टेटस मेकर</h1><div>तुमचे आवडते स्टेटस तयार करा आणि शेअर करा</div></header>
-<nav>
-<button onclick="show('statuses')">स्टेटस</button><button onclick="show('poster')">पोस्टर</button><button onclick="show('video')">व्हिडिओ</button>
-</nav>
+*{box-sizing:border-box}body{margin:0;background:#fff7f8;color:#24151a;font-family:system-ui,-apple-system,sans-serif}header{background:linear-gradient(135deg,#65001b,#a21d3e);color:#fff;padding:20px 15px;text-align:center}h1{font-size:24px;margin:0 0 5px}.sub{font-size:13px;opacity:.9}nav{display:flex;gap:7px;padding:10px;background:white;position:sticky;top:0;z-index:2;overflow:auto;box-shadow:0 2px 8px #0001}button,.tab{border:0;border-radius:10px;padding:10px 13px;background:#790c2b;color:white;font-weight:650;font-size:14px;cursor:pointer;white-space:nowrap}.tab.active{background:#2b1720}main{max-width:760px;margin:auto;padding:12px}.panel{background:white;padding:14px;border-radius:15px;margin:10px 0;box-shadow:0 2px 12px #0000000b}.muted{color:#786a70;font-size:13px}.hidden{display:none}.cats{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.cats button{background:#f2e6ea;color:#68152f}.cats button.active{background:#790c2b;color:white}.status{border-bottom:1px solid #eee;padding:13px 2px;line-height:1.6}.actions{display:flex;gap:8px;margin-top:8px}.actions button{font-size:13px}.actions .share{background:#3c657b}input,textarea,select{width:100%;padding:12px;border:1px solid #ddcdd2;border-radius:10px;margin:7px 0;font:inherit}textarea{min-height:90px}canvas{width:100%;max-width:360px;border-radius:12px;display:block;margin:12px auto;background:#65001b}video{width:100%;max-height:360px;background:#111;border-radius:10px}.god{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #eee}.god a{color:#7b1232;font-weight:700;text-decoration:none}.pill{font-size:12px;color:#6c1832;background:#f6e9ed;border-radius:30px;padding:5px 9px}
+</style></head><body>
+<header><h1>मराठी स्टेटस मेकर</h1><div class="sub">स्टेटस • पोस्टर • भक्ती व्हिडिओ</div></header>
+<nav><button class="tab active" onclick="show('statuses',this)">स्टेटस</button><button class="tab" onclick="show('poster',this)">पोस्टर</button><button class="tab" onclick="show('devotion',this)">भक्ती व्हिडिओ</button><button class="tab" onclick="show('myvideo',this)">माझा व्हिडिओ</button></nav>
 <main>
-<section id="statuses">
-<div class="panel"><b>कॅटेगरी निवडा</b><div id="cats"></div></div>
-<div class="panel"><div id="statusList"></div></div>
-</section>
-<section id="poster" class="hidden">
-<div class="panel"><h3>पोस्टर तयार करा</h3>
-<input id="photo" type="file" accept="image/*"><textarea id="quote" placeholder="तुमचा मराठी मजकूर लिहा"></textarea>
-<label>बॅकग्राउंड रंग</label><input id="bg" type="color" value="#7b1530">
-<button onclick="makePoster()">पोस्टर तयार करा</button><canvas id="posterCanvas" width="720" height="900"></canvas>
-<button onclick="downloadPoster()">PNG डाउनलोड करा</button>
-</div></section>
-<section id="video" class="hidden">
-<div class="panel"><h3>तुमचा व्हिडिओ पाहा</h3><input id="videoFile" type="file" accept="video/*"><video id="player" controls></video>
-<p class="muted">फोनमधून स्वतःचा व्हिडिओ निवडा. इथे तयार ऑनलाइन व्हिडिओ लायब्ररी नाही.</p>
-</div></section>
+<section id="statuses"><div class="panel"><b>तुमची कॅटेगरी निवडा</b><div id="cats" class="cats"></div><p class="muted" id="count"></p></div><div class="panel"><div id="list"></div></div></section>
+<section id="poster" class="hidden"><div class="panel"><h3>तुमचा पोस्टर तयार करा</h3><input id="photo" type="file" accept="image/*"><textarea id="quote" placeholder="मराठी मजकूर लिहा"></textarea><label>बॅकग्राउंड रंग</label><input id="bg" type="color" value="#65001b"><button onclick="makePoster()">पोस्टर तयार करा</button><canvas id="cv" width="720" height="900"></canvas><button onclick="downloadPoster()">PNG डाउनलोड करा</button></div></section>
+<section id="devotion" class="hidden"><div class="panel"><h3>🙏 भक्ती व्हिडिओ</h3><p class="muted">खालील बटण दाबल्यावर YouTube वर त्या देवतेचे भक्ती स्टेटस व्हिडिओ उघडतील. इंटरनेट आवश्यक आहे.</p><div id="gods"></div></div></section>
+<section id="myvideo" class="hidden"><div class="panel"><h3>फोनमधील व्हिडिओ पाहा</h3><input id="vf" type="file" accept="video/*"><video id="player" controls playsinline></video><p class="muted">फोनमधील स्वतःचा व्हिडिओ निवडा. हा व्हिडिओ अपलोड होत नाही.</p></div></section>
 </main>
 <script>
-const data={
-'Attitude':['स्वतःची किंमत ओळखा, जग आपोआप ओळखेल.','शांत आहे म्हणजे कमजोर नाही.'],
-'Love':['मनापासून जपलेली माणसं नशिबाने मिळतात.','तुझं हसूच माझ्यासाठी खास आहे.'],
-'Motivation':['वेळ लागेल, पण मेहनत वाया जाणार नाही.','आजचा संघर्ष उद्याची ताकद आहे.'],
-'Emotional':['काही गोष्टी मनातच राहिलेल्या बऱ्या.','हसणाऱ्या चेहऱ्यामागेही वेदना असतात.'],
-'Self Respect':['जिथे मान नाही, तिथे थांबायचं नाही.','स्वाभिमानापेक्षा मोठं काहीच नाही.'],
-'Friendship':['खरा मित्र वेळेवर ओळखू येतो.','मैत्री शब्दांनी नाही, साथीनं कळते.']
-};
-let current=Object.keys(data)[0];
-const cats=document.getElementById('cats'), list=document.getElementById('statusList');
-Object.keys(data).forEach(c=>{let b=document.createElement('button');b.className='small';b.textContent=c;b.onclick=()=>{current=c;render()};cats.append(b)});
-function render(){list.innerHTML='';data[current].forEach(s=>{let d=document.createElement('div');d.className='status';let p=document.createElement('div');p.textContent=s;let b=document.createElement('button');b.textContent='कॉपी';b.onclick=()=>navigator.clipboard?.writeText(s).then(()=>alert('कॉपी झाले!')).catch(()=>alert(s));let sh=document.createElement('button');sh.textContent='शेअर';sh.style.marginLeft='8px';sh.onclick=()=>navigator.share? navigator.share({text:s}):alert(s);d.append(p,b,sh);list.append(d)})}
-render();
-function show(id){['statuses','poster','video'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id))}
-let selectedPhoto=null;document.getElementById('photo').onchange=e=>{let f=e.target.files[0];if(f){selectedPhoto=new Image();selectedPhoto.onload=()=>makePoster();selectedPhoto.src=URL.createObjectURL(f)}};
-function makePoster(){let c=document.getElementById('posterCanvas'),x=c.getContext('2d');x.fillStyle=document.getElementById('bg').value;x.fillRect(0,0,c.width,c.height);if(selectedPhoto){let r=Math.max(c.width/selectedPhoto.width,c.height/selectedPhoto.height);let w=selectedPhoto.width*r,h=selectedPhoto.height*r;x.drawImage(selectedPhoto,(c.width-w)/2,(c.height-h)/2,w,h);x.fillStyle='#0008';x.fillRect(0,0,c.width,c.height)}x.fillStyle='white';x.textAlign='center';x.font='bold 46px sans-serif';let words=(document.getElementById('quote').value||'तुमचा मराठी स्टेटस').split(' '),lines=[],line='';words.forEach(w=>{let t=line?line+' '+w:w;if(x.measureText(t).width>620){lines.push(line);line=w}else line=t});if(line)lines.push(line);let y=c.height/2-(lines.length-1)*58/2;lines.forEach(l=>{x.fillText(l,c.width/2,y);y+=58});x.font='24px sans-serif';x.fillText('Marathi Status Maker',c.width/2,850)}
-function downloadPoster(){let a=document.createElement('a');a.download='marathi-status.png';a.href=document.getElementById('posterCanvas').toDataURL('image/png');a.click()}
-document.getElementById('videoFile').onchange=e=>{let f=e.target.files[0];if(f)document.getElementById('player').src=URL.createObjectURL(f)};
-if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
+const phrases={
+'Attitude':['स्वतःची किंमत ओळखा, जग आपोआप ओळखेल.','शांत आहे म्हणजे कमजोर नाही.','वेगळं असणं हीच माझी ओळख आहे.','मी बदललो नाही, फक्त समजूतदार झालो.','उत्तर वेळ देईल, मी नाही.','स्वतःवर विश्वास असेल तर वाट सापडते.','नाव कमवायला वेळ लागतो, गोंधळ नाही.','माझी स्पर्धा कालच्या माझ्याशी आहे.','इज्जत दिली तर दुप्पट मिळेल.','स्वाभिमानासाठी एकटं राहणंही मान्य आहे.'],
+'Love':['मनापासून जपलेली माणसं नशिबाने मिळतात.','तुझं हसूच माझ्यासाठी खास आहे.','प्रेम शब्दांत नाही, काळजीत दिसतं.','जवळ असणं म्हणजेच प्रेम नाही, समजून घेणंही प्रेम आहे.','तुझ्या आठवणी मनात कायम आहेत.','खरं प्रेम वेळ मागत नाही, साथ देतं.','मन जिथे शांत होतं, तिथेच आपलं माणूस असतं.'],
+'Motivation':['आजचा संघर्ष उद्याची ताकद आहे.','वेळ लागेल, पण मेहनत वाया जाणार नाही.','थांबू नकोस, सुरुवात छोटी असली तरी चालेल.','स्वप्न मोठं असेल तर मेहनतही मोठी हवी.','अपयश हा शेवट नाही, शिकण्याची संधी आहे.','दररोज एक पाऊल पुढे टाक.','जिद्द असेल तर मार्ग नक्की मिळतो.'],
+'Emotional':['काही गोष्टी मनातच राहिलेल्या बऱ्या.','हसणाऱ्या चेहऱ्यामागेही वेदना असतात.','कधी कधी शांत राहणंच उत्तर असतं.','आठवणी पुसता येत नाहीत, फक्त स्वीकाराव्या लागतात.','मन दुखलं की शब्द कमी पडतात.','सगळ्यांसाठी असताना स्वतःसाठीही जगायला हवं.'],
+'Self Respect':['जिथे मान नाही, तिथे थांबायचं नाही.','स्वाभिमानापेक्षा मोठं काहीच नाही.','स्वतःचा आदर करा, जगही करेल.','नातं जपताना स्वतःला हरवू नका.','किंमत कळत नसेल तर अंतर ठेवा.','माझा शांतपणा माझी कमजोरी समजू नका.'],
+'Friendship':['खरा मित्र वेळेवर ओळखू येतो.','मैत्री शब्दांनी नाही, साथीनं कळते.','मित्र कमी असले तरी मनापासून असू देत.','आठवणी सुंदर असतील तर अंतर कमी वाटतं.','सुखात अनेक, दुःखात खरा मित्र.'],
+'गणपती बाप्पा':['गणपती बाप्पा मोरया, मंगलमूर्ती मोरया!','बाप्पाच्या चरणी चिंता विसरून जाऊ दे.','विघ्नहर्ता गणराया, सर्वांना सुखी ठेव.','जिथे बाप्पाचा आशीर्वाद, तिथे भीती कसली?','मोरया म्हणताच मनाला नवी उमेद मिळते.'],
+'महादेव':['हर हर महादेव!','भोलेनाथाची कृपा असेल तर अशक्य काहीच नाही.','महादेवावर विश्वास ठेवा, मार्ग नक्की मिळेल.','शिवशंभो, मनातील दुःख दूर कर.','महाकालाच्या भक्ताला काळाची भीती नाही.'],
+'श्रीराम':['जय श्रीराम!','प्रभू श्रीरामांचा आदर्श जीवनाला दिशा देतो.','राम नामात मनाला शांती मिळते.','सत्य आणि मर्यादेचा मार्ग श्रीराम शिकवतात.','सीताराम, सर्वांवर कृपा राहू दे.'],
+'श्रीकृष्ण':['राधे राधे!','कृष्णाची शिकवण, कर्म करत राहा.','जिथे कृष्ण, तिथे प्रेम आणि विश्वास.','मुरलीधराच्या नामात मन रमू दे.','श्रीकृष्ण म्हणतात, योग्य वेळेची वाट पाहा.'],
+'हनुमान':['जय बजरंगबली!','हनुमंताच्या कृपेने संकट दूर होवो.','रामभक्त हनुमान, शक्ती आणि भक्तीचे प्रतीक.','संकटमोचनाचे नाव घेताच धैर्य मिळते.','जय हनुमान, सर्वांचे रक्षण कर.']};
+const cats=document.getElementById('cats'),list=document.getElementById('list');let current=Object.keys(phrases)[0];function renderCats(){cats.innerHTML='';Object.keys(phrases).forEach(c=>{let b=document.createElement('button');b.textContent=c;b.className=c===current?'active':'';b.onclick=()=>{current=c;renderCats();renderList()};cats.append(b)})}function renderList(){list.innerHTML='';document.getElementById('count').textContent=phrases[current].length+' स्टेटस';phrases[current].forEach(s=>{let d=document.createElement('div');d.className='status';let p=document.createElement('div');p.textContent=s;let a=document.createElement('div');a.className='actions';let cp=document.createElement('button');cp.textContent='कॉपी';cp.onclick=()=>navigator.clipboard?.writeText(s).then(()=>alert('कॉपी झाले!')).catch(()=>alert(s));let sh=document.createElement('button');sh.textContent='शेअर';sh.className='share';sh.onclick=()=>navigator.share?navigator.share({text:s}):alert(s);a.append(cp,sh);d.append(p,a);list.append(d)})}renderCats();renderList();
+function show(id,btn){['statuses','poster','devotion','myvideo'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id));document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
+const gods=[['गणपती बाप्पा','Ganpati Bappa Marathi status video'],['महादेव','Mahadev Shiv Shankar Marathi status video'],['श्रीराम','Jai Shree Ram Marathi status video'],['श्रीकृष्ण','Radha Krishna Marathi status video'],['हनुमान','Hanuman bhakti status video'],['विठ्ठल रखुमाई','Vitthal Rukmini Marathi status video'],['देवी माता','Durga Mata bhakti status video']];document.getElementById('gods').innerHTML=gods.map(g=>`<div class="god"><div><b>${g[0]}</b><div class="muted">भक्ती स्टेटस व्हिडिओ</div></div><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(g[1])}">व्हिडिओ पाहा ↗</a></div>`).join('');
+let pic=null;document.getElementById('photo').onchange=e=>{let f=e.target.files[0];if(f){pic=new Image();pic.onload=makePoster;pic.src=URL.createObjectURL(f)}};function makePoster(){let c=document.getElementById('cv'),x=c.getContext('2d');x.fillStyle=document.getElementById('bg').value;x.fillRect(0,0,720,900);if(pic){let r=Math.max(720/pic.width,900/pic.height),w=pic.width*r,h=pic.height*r;x.globalAlpha=.5;x.drawImage(pic,(720-w)/2,(900-h)/2,w,h);x.globalAlpha=1}x.fillStyle='white';x.textAlign='center';x.font='bold 46px sans-serif';let words=(document.getElementById('quote').value||'तुमचा मराठी स्टेटस').split(' '),lines=[],line='';words.forEach(w=>{let t=line?line+' '+w:w;if(x.measureText(t).width>630){lines.push(line);line=w}else line=t});if(line)lines.push(line);let y=450-(lines.length-1)*62/2;lines.forEach(l=>{x.fillText(l,360,y);y+=62});x.font='23px sans-serif';x.fillText('Marathi Status Maker',360,850)}function downloadPoster(){let a=document.createElement('a');a.download='marathi-status.png';a.href=document.getElementById('cv').toDataURL('image/png');a.click()}document.getElementById('vf').onchange=e=>{let f=e.target.files[0];if(f)document.getElementById('player').src=URL.createObjectURL(f)};
 </script></body></html>
